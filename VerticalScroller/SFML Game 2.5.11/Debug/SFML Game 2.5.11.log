@@ -1,0 +1,10 @@
+﻿  Game.cpp
+G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\Game.cpp(104,12): warning C4244: 'initializing': conversion from 'const T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\Game.cpp(106,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\Game.cpp(183,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\Game.cpp(183,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SFML Game 2.5.11.vcxproj -> G:\motion graphics\VerticalScroller\VerticalScroller\Debug\SFML Game 2.5.11.exe
