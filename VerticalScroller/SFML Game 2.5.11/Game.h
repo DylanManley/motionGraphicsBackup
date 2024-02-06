@@ -24,13 +24,20 @@ public:
 private:
 
 	void processEvents();
-	void processKeys(sf::Event t_event);
+
 	void update(sf::Time t_deltaTime);
 	void render();
 	
 	void setupFontAndText();
 	void setupSprite();
-	void movePlayer(int t_direction);
+	void moveLeft();
+	void moveRight();
+	void moveDown();
+	void moveUp();
+	void HandleInput();
+	void collision();
+	void endGame();
+
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -42,7 +49,11 @@ private:
 	static const int noWalls = 1024;
 	sf::RectangleShape walls[noWalls];
 	sf::RectangleShape player;
-	int direction = 0;
+	sf::Vector2f playerPos;
+	sf::Color wallColour{156, 13, 56};
+	sf::Color backgroundColour{34, 49, 39};
+	sf::Color playerColour {219, 187, 245};
+
 
 };
 

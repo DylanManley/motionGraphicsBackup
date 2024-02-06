@@ -62,35 +62,13 @@ void Game::processEvents()
 	sf::Event newEvent;
 	while (m_window.pollEvent(newEvent))
 	{
-		if ( sf::Event::Closed == newEvent.type) // window message
+		if (sf::Event::Closed == newEvent.type) // window message
 		{
 			m_exitGame = true;
 		}
-		if (sf::Event::KeyPressed == newEvent.type) //user pressed a key
-		{
-			processKeys(newEvent);
-		}
 	}
 }
 
-
-void Game::processKeys(sf::Event t_event)
-{
-	if (sf::Keyboard::Escape == t_event.key.code)
-	{
-		m_exitGame = true;
-	}
-
-	if (sf::Keyboard::A == t_event.key.code)
-	{
-		direction = 1;
-	}
-
-	if (sf::Keyboard::D == t_event.key.code)
-	{
-		direction = 2;
-	}
-}
 
 void Game::update(sf::Time t_deltaTime)
 {
@@ -106,7 +84,9 @@ void Game::update(sf::Time t_deltaTime)
 		walls[i].setPosition(walls[i].getPosition().x, newYPos);
 	}
 
-	movePlayer(direction);
+	HandleInput();
+	player.setPosition(playerPos);
+	collision();
 }
 
 
@@ -141,6 +121,11 @@ void Game::setupSprite()
 
 
 	int levelData[] = {
+		1,1,1,1,0,1,1,1,1,
+		1,1,1,1,0,1,1,1,1,
+		1,1,1,1,0,1,1,1,1,
+		1,1,1,0,0,0,1,1,1,
+		1,1,1,0,0,0,1,1,1,
 		1,1,0,0,1,0,0,1,1,
 		1,1,0,0,1,0,0,1,1,
 		1,1,0,0,1,0,0,1,1,
@@ -156,7 +141,7 @@ void Game::setupSprite()
 		1,0,1,1,1,1,1,0,1,
 		1,0,0,1,1,1,0,0,1,
 		1,1,0,0,0,0,0,1,1,
-		1,1,1,1,0,0,0,1,1,
+		1,1,0,0,0,0,0,1,1,
 		1,1,1,1,0,0,0,1,1,
 		1,1,1,1,1,0,0,0,1,
 		1,1,1,1,1,1,0,0,1,
@@ -176,7 +161,7 @@ void Game::setupSprite()
 						};
 
 	int wallsX = 0;
-	int wallsY = -1024;
+	int wallsY = -1200;
 
 	for (int i = 0; i < noWalls; i++)
 	{
@@ -185,11 +170,11 @@ void Game::setupSprite()
 		
 		if (levelData[i] == 1)
 		{
-			walls[i].setFillColor(sf::Color::Red);
+			walls[i].setFillColor(wallColour);
 		}
-		else
+		else if(levelData[i] == 0)
 		{
-			walls[i].setFillColor(sf::Color::Black);
+			walls[i].setFillColor(backgroundColour);
 		}
 
 		wallsX = wallsX + 90;
@@ -203,21 +188,68 @@ void Game::setupSprite()
 
 	player.setSize(sf::Vector2f(20, 40));
 	player.setPosition(400, 820);
-	player.setFillColor(sf::Color::Blue);
+	player.setFillColor(playerColour);
+	playerPos = player.getPosition();
 }
 
-void Game::movePlayer(int t_direction)
+void Game::moveLeft()
 {
-	sf::Vector2f playerPos = player.getPosition();
+	playerPos.x = playerPos.x - 5;
+}
 
-	if (t_direction == 1)
+void Game::moveRight()
+{
+	playerPos.x = playerPos.x + 5;
+}
+
+void Game::moveDown()
+{
+	playerPos.y = playerPos.y + 2;
+}
+
+void Game::moveUp()
+{
+	playerPos.y = playerPos.y - 1;
+}
+
+void Game::HandleInput()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		playerPos.x = playerPos.x - 3;
-	}
-	else if(t_direction == 2)
-	{
-		playerPos.x = playerPos.x + 3;
+		moveLeft();
 	}
 
-	player.setPosition(playerPos);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		moveRight();
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+	{
+		moveUp();
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		moveDown();
+	}
+}
+
+void Game::collision()
+{
+	for (int i = 0; i < noWalls; i++)
+	{
+		if (player.getGlobalBounds().intersects(walls[i].getGlobalBounds()))
+		{
+			if (walls[i].getFillColor() == wallColour)
+			{
+				endGame();
+			}
+		}
+	}
+}
+
+void Game::endGame()
+{
+	m_window.close();
 }
