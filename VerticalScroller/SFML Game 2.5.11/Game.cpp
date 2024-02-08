@@ -13,8 +13,7 @@ Game::Game() :
 	m_window{ sf::VideoMode{ 800U, 1000U, 32U }, "SFML Game" },
 	m_exitGame{false} //when true game will exit
 {
-	setupFontAndText(); // load font 
-	setupSprite(); // load texture
+	setup();
 }
 
 /// <summary>
@@ -79,65 +78,113 @@ void Game::update(sf::Time t_deltaTime)
 
 	for (int i = 0; i < noWalls; i++)
 	{
-		int yPos = walls[i].getPosition().y;
-		int newYPos = yPos + 1;
-		walls[i].setPosition(walls[i].getPosition().x, newYPos);
+		if (scroll)
+		{
+			if (gameOver == false)
+			{
+				walls[i].setPosition(walls[i].getPosition().x, walls[i].getPosition().y + 1);
+			}
+		}
 	}
 
 	HandleInput();
 	player.setPosition(playerPos);
 	collision();
+
+	if (shooting == true)
+	{
+		bullet.setPosition(bullet.getPosition().x, bullet.getPosition().y - 20);
+	}
+
+	if (bullet.getPosition().y <= 0)
+	{
+		canShoot = true;
+	}
+
+	scoreText.setString("Score: " + std::to_string(score));
+
+	EnemyBullets();
 }
 
 
 void Game::render()
 {
-	m_window.clear(sf::Color::White);
+	m_window.clear(backgroundColour);
 	for (int i = 0; i < noWalls; i++)
 	{
 		m_window.draw(walls[i]);
 	}
+
+	if (shooting == true)
+	{
+		m_window.draw(bullet);
+	}
 	m_window.draw(player);
+
+	if (gameOver == true)
+	{
+		m_window.draw(m_gameOverMessage);
+		scoreText.setPosition(m_gameOverMessage.getPosition().x + 30, m_gameOverMessage.getPosition().y + 100);
+	}
+
+	if (!scroll)
+	{
+		m_window.draw(startMessage);
+	}
+
+	m_window.draw(scoreText);
+
 	m_window.display();
 }
 
-void Game::setupFontAndText()
+
+void Game::setup()
 {
 	if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\ariblk.ttf"))
 	{
 		std::cout << "problem loading arial black font" << std::endl;
 	}
 
+	m_gameOverMessage.setString("      Game Over \n Press R to restart");
+	m_gameOverMessage.setFont(m_ArialBlackfont);
+	m_gameOverMessage.setFillColor(yellowColour);
+	m_gameOverMessage.setCharacterSize(30);
+	m_gameOverMessage.setPosition(270, 450);
 
-}
-
-void Game::setupSprite()
-{
-	if (!m_logoTexture.loadFromFile("ASSETS\\IMAGES\\SFML-LOGO.png"))
-	{
-		std::cout << "problem loading logo" << std::endl;
-	}
+	startMessage.setString("Press R to start");
+	startMessage.setFont(m_ArialBlackfont);
+	startMessage.setFillColor(yellowColour);
+	startMessage.setCharacterSize(30);
+	startMessage.setPosition(270, 450);
 
 
+	scoreText.setString("Score: " + std::to_string(score));
+	scoreText.setFont(m_ArialBlackfont);
+	scoreText.setFillColor(yellowColour);
+	scoreText.setCharacterSize(20);
+	scoreText.setPosition(10, 10);
+
+	shooting = false;
+	canShoot = true;
 
 	int levelData[] = {
 		1,1,1,1,0,1,1,1,1,
+		1,1,1,1,2,1,1,1,1,
 		1,1,1,1,0,1,1,1,1,
-		1,1,1,1,0,1,1,1,1,
 		1,1,1,0,0,0,1,1,1,
 		1,1,1,0,0,0,1,1,1,
 		1,1,0,0,1,0,0,1,1,
+		1,1,0,0,1,3,0,1,1,
 		1,1,0,0,1,0,0,1,1,
-		1,1,0,0,1,0,0,1,1,
 		1,1,1,0,0,0,1,1,1,
+		1,1,1,0,2,0,1,1,1,
 		1,1,1,0,0,0,1,1,1,
-		1,1,1,0,0,0,1,1,1,
-		1,1,0,0,0,0,0,1,1,
+		1,1,0,0,3,0,0,1,1,
 		1,0,0,0,0,0,0,0,1,
 		1,0,0,0,1,1,0,0,1,
 		1,0,0,1,1,1,0,0,1,
-		1,0,1,1,1,1,1,0,1,
-		1,0,1,1,1,1,1,0,1,
+		1,0,1,1,1,1,1,3,1,
+		1,3,1,1,1,1,1,2,1,
 		1,0,1,1,1,1,1,0,1,
 		1,0,0,1,1,1,0,0,1,
 		1,1,0,0,0,0,0,1,1,
@@ -146,12 +193,12 @@ void Game::setupSprite()
 		1,1,1,1,1,0,0,0,1,
 		1,1,1,1,1,1,0,0,1,
 		1,1,1,1,1,0,0,0,1,
-		1,1,1,1,1,0,0,0,1,
+		1,1,1,1,1,0,2,0,1,
 		1,1,1,1,1,0,0,0,1,
 		1,1,1,1,0,0,0,1,1,
 		1,1,1,0,0,0,1,1,1,
 		1,1,0,0,0,1,1,1,1,
-		1,0,0,0,1,1,1,1,1,
+		1,0,2,0,1,1,1,1,1,
 		1,0,0,0,1,1,1,1,1,
 		1,1,0,0,0,1,1,1,1,
 		1,1,1,0,0,0,1,1,1,
@@ -161,7 +208,7 @@ void Game::setupSprite()
 						};
 
 	int wallsX = 0;
-	int wallsY = -1200;
+	int wallsY = -1250;
 
 	for (int i = 0; i < noWalls; i++)
 	{
@@ -172,9 +219,26 @@ void Game::setupSprite()
 		{
 			walls[i].setFillColor(wallColour);
 		}
-		else if(levelData[i] == 0)
+		else if (levelData[i] == 2)
+		{
+			walls[i].setFillColor(yellowColour);
+			walls[i].setSize(sf::Vector2f(10, 10));
+			walls[i].setOrigin(5, 5);
+			walls[i].setPosition(walls[i].getPosition().x + 45, walls[i].getPosition().y + 45);
+		}
+		else if (levelData[i] == 3)
+		{
+			walls[i].setFillColor(bulletColour);
+			walls[i].setSize(sf::Vector2f(30, 30));
+			walls[i].setOrigin(15, 15);
+			walls[i].setPosition(walls[i].getPosition().x + 45, walls[i].getPosition().y + 45);
+			//enemyBullet[i].setPosition(walls[i].getPosition());
+		}
+
+		else if (levelData[i] == 0)
 		{
 			walls[i].setFillColor(backgroundColour);
+			
 		}
 
 		wallsX = wallsX + 90;
@@ -190,6 +254,18 @@ void Game::setupSprite()
 	player.setPosition(400, 820);
 	player.setFillColor(playerColour);
 	playerPos = player.getPosition();
+
+	bullet.setRadius(10);
+	bullet.setPosition(player.getPosition());
+	bullet.setFillColor(bulletColour);
+
+	for (int i = 0; i < 5; i++)
+	{
+		enemyBullet[i].setFillColor(bulletColour);
+		enemyBullet[i].setRadius(10);
+		enemyBullet[i].setPosition(0, 0);
+	}
+
 }
 
 void Game::moveLeft()
@@ -214,24 +290,53 @@ void Game::moveUp()
 
 void Game::HandleInput()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	if (scroll)
 	{
-		moveLeft();
+		if (gameOver == false)
+		{
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+			{
+				moveLeft();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+			{
+				moveRight();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+			{
+				moveUp();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+			{
+				moveDown();
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+			{
+
+				if (canShoot)
+				{
+					shoot();
+				}
+			}
+		}
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 	{
-		moveRight();
-	}
+		if (!scroll)
+		{
+			scroll = true;
+		}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		moveUp();
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-	{
-		moveDown();
+		if (gameOver == true)
+		{
+			gameOver = false;
+			setup();
+		}
 	}
 }
 
@@ -241,15 +346,50 @@ void Game::collision()
 	{
 		if (player.getGlobalBounds().intersects(walls[i].getGlobalBounds()))
 		{
-			if (walls[i].getFillColor() == wallColour)
+			if (walls[i].getFillColor() == wallColour || walls[i].getFillColor() == bulletColour)
 			{
-				endGame();
+				gameOver = true;
+			}
+
+			if (walls[i].getFillColor() == yellowColour)
+			{
+				walls[i].setPosition(2000, 2000);
+				score++;
+			}
+		}
+
+		if (bullet.getGlobalBounds().intersects(walls[i].getGlobalBounds()))
+		{
+			if (walls[i].getFillColor() == bulletColour)
+			{
+				walls[i].setPosition(2000, 2000);
+				score = score + 5;
 			}
 		}
 	}
 }
 
-void Game::endGame()
+void Game::shoot()
 {
-	m_window.close();
+	bullet.setPosition(playerPos);
+	shooting = true;
+	canShoot = false;
 }
+
+void Game::EnemyBullets()
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if (player.getPosition().y < enemyBullet[i].getPosition().y)
+		{
+			enemyBullet[i].setPosition(enemyBullet[i].getPosition().x, enemyBullet[i].getPosition().y - 10);
+		}
+		else if (player.getPosition().y > enemyBullet[i].getPosition().y)
+		{
+			enemyBullet[i].setPosition(enemyBullet[i].getPosition().x, enemyBullet[i].getPosition().y + 10);
+		}
+	}
+
+}
+
+

@@ -27,21 +27,21 @@ private:
 
 	void update(sf::Time t_deltaTime);
 	void render();
-	
-	void setupFontAndText();
-	void setupSprite();
+	void setup();
 	void moveLeft();
 	void moveRight();
 	void moveDown();
 	void moveUp();
 	void HandleInput();
 	void collision();
-	void endGame();
+	void shoot();
+	void EnemyBullets();
+
 
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
-	sf::Text m_welcomeMessage; // text used for message on screen
+	sf::Text m_gameOverMessage; // text used for message on screen
 	sf::Texture m_logoTexture; // texture used for sfml logo
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 	bool m_exitGame; // control exiting game
@@ -50,11 +50,24 @@ private:
 	sf::RectangleShape walls[noWalls];
 	sf::RectangleShape player;
 	sf::Vector2f playerPos;
-	sf::Color wallColour{156, 13, 56};
-	sf::Color backgroundColour{34, 49, 39};
-	sf::Color playerColour {219, 187, 245};
+	sf::Color wallColour{216, 30, 91};
+	sf::Color backgroundColour{51, 24, 50};
+	sf::Color playerColour {240, 84, 79};
+	sf::Color yellowColour{253, 240, 213};
+	sf::Color bulletColour{198, 216, 211};
+	bool gameOver = false;
+	bool scroll = false;
 
+	bool shooting = false;
+	bool canShoot = true;
+	sf::CircleShape bullet;
+	int currentBullet = 0;
 
+	int score = 0;
+	sf::Text scoreText;
+	sf::Text startMessage;
+
+	sf::CircleShape enemyBullet[10];
 };
 
 #endif // !GAME_HPP
