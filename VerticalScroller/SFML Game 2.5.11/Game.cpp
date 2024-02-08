@@ -83,7 +83,6 @@ void Game::update(sf::Time t_deltaTime)
 			if (gameOver == false)
 			{
 				walls[i].setPosition(walls[i].getPosition().x, walls[i].getPosition().y + 1);
-				winText.setPosition(270, walls[0].getPosition().y - 500);
 			}
 		}
 	}
@@ -105,11 +104,6 @@ void Game::update(sf::Time t_deltaTime)
 	scoreText.setString("Score: " + std::to_string(score));
 
 	EnemyBullets();
-
-	if (walls[0].getPosition().y == 1000)
-	{
-		scroll = false;
-	}
 }
 
 
@@ -137,8 +131,6 @@ void Game::render()
 	{
 		m_window.draw(startMessage);
 	}
-
-	m_window.draw(winText);
 
 	m_window.draw(scoreText);
 
@@ -169,14 +161,8 @@ void Game::setup()
 	scoreText.setString("Score: " + std::to_string(score));
 	scoreText.setFont(m_ArialBlackfont);
 	scoreText.setFillColor(yellowColour);
-	scoreText.setCharacterSize(30);
+	scoreText.setCharacterSize(20);
 	scoreText.setPosition(10, 10);
-
-	winText.setString("YOU WON");
-	winText.setFont(m_ArialBlackfont);
-	winText.setFillColor(yellowColour);
-	winText.setCharacterSize(30);
-	winText.setPosition(270, walls[0].getPosition().y - 450);
 
 	shooting = false;
 	canShoot = true;

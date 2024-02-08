@@ -66,7 +66,6 @@ private:
 	int score = 0;
 	sf::Text scoreText;
 	sf::Text startMessage;
-	sf::Text winText;
 
 	sf::CircleShape enemyBullet[10];
 };

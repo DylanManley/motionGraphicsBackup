@@ -1,4 +1,4 @@
 ﻿  Game.cpp
-C:\Users\Dylan\Desktop\motionGraphicsBackup\VerticalScroller\SFML Game 2.5.11\Game.cpp(229,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Dylan\Desktop\motionGraphicsBackup\VerticalScroller\SFML Game 2.5.11\Game.cpp(229,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  SFML Game 2.5.11.vcxproj -> C:\Users\Dylan\Desktop\motionGraphicsBackup\VerticalScroller\Debug\SFML Game 2.5.11.exe
+G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\Game.cpp(215,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\Game.cpp(215,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SFML Game 2.5.11.vcxproj -> G:\motion graphics\VerticalScroller\VerticalScroller\Debug\SFML Game 2.5.11.exe
