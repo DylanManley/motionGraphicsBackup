@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\Dylan\Desktop\OneButtonPlatformer\Debug\OneButtonPlatformer.exe</FullPath>
+      <FullPath>C:\Users\c00286789\Desktop\motionGraphicsBackup\OneButtonPlatformer\Debug\OneButtonPlatformer.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\Dylan\Desktop\OneButtonPlatformer\OneButtonPlatformer\ASSETS\FONTS\ariblk.ttf</FullPath>
+      <FullPath>C:\Users\c00286789\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\ASSETS\FONTS\ariblk.ttf</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\Dylan\Desktop\OneButtonPlatformer\OneButtonPlatformer\ASSETS\IMAGES\SFML-LOGO.png</FullPath>
+      <FullPath>C:\Users\c00286789\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\ASSETS\IMAGES\SFML-LOGO.png</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />

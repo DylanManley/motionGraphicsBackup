@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>G:\motion graphics\VerticalScroller\VerticalScroller\Debug\SFML Game 2.5.11.exe</FullPath>
+      <FullPath>C:\Users\c00286789\Desktop\motionGraphicsBackup\VerticalScroller\Debug\SFML Game 2.5.11.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\ASSETS\FONTS\ariblk.ttf</FullPath>
+      <FullPath>C:\Users\c00286789\Desktop\motionGraphicsBackup\VerticalScroller\SFML Game 2.5.11\ASSETS\FONTS\ariblk.ttf</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>G:\motion graphics\VerticalScroller\VerticalScroller\SFML Game 2.5.11\ASSETS\IMAGES\SFML-LOGO.png</FullPath>
+      <FullPath>C:\Users\c00286789\Desktop\motionGraphicsBackup\VerticalScroller\SFML Game 2.5.11\ASSETS\IMAGES\SFML-LOGO.png</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
