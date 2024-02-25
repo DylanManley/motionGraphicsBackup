@@ -20,16 +20,17 @@ private:
 	void createLevel();
 	void handleInput();
 	void Collisions();
+	void animatePlayer();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
 	bool m_exitGame; // control exiting game
 
-	sf::Color LightOrange{ 254, 217, 183 };
-	sf::Color Wenge{ 84, 73, 75 };
-	sf::Color UltraViolet{ 11, 29, 81 };
-	sf::Color SelectiveYellow{ 255, 184, 0 };
-	sf::Color RussianViolet{ 57, 0, 64 };
+	sf::Color Night{ 8, 15, 15};
+	sf::Color AshGrey{ 164, 186, 183 };
+	sf::Color Auburn{ 165, 36, 34 };
+	sf::Color Cream{ 239, 242, 192};
+	sf::Color Khaki{ 190, 165, 125 };
 
 	float velocityX = 0;
 	float velocityY = 0;
@@ -43,6 +44,10 @@ private:
 	float randomNum;
 	sf::Texture groundTexture;
 	sf::Texture eyeTexture;
+	sf::Texture playerTexture;
+
+	int currentFrame = 1;
+	int totalElapsed = 0;
 
 
 

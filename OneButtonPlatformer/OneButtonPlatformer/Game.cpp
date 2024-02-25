@@ -8,7 +8,7 @@
 
 
 Game::Game() :
-	m_window{ sf::VideoMode{ 1000U, 800U, 32U }, "SFML Game" },
+	m_window{ sf::VideoMode{ 800U, 600U, 32U }, "SFML Game" },
 	m_exitGame{false} 
 {
 	setup();
@@ -77,6 +77,7 @@ void Game::update(sf::Time t_deltaTime)
 
 	handleInput();
 	Collisions();
+	animatePlayer();
 
 	for (int row = 0; row < numRows; row++)
 	{
@@ -97,7 +98,7 @@ void Game::update(sf::Time t_deltaTime)
 
 void Game::render()
 {
-	m_window.clear(LightOrange);
+	m_window.clear(Night);
 	for (int row = 0; row < numRows; row++)
 	{
 		for (int col = 0; col < numCols; col++)
@@ -118,12 +119,15 @@ void Game::setup()
 
 	groundTexture.loadFromFile("ASSETS\\IMAGES\\Ground_Tiles.jpg");
 	eyeTexture.loadFromFile("ASSETS\\IMAGES\\EyeTile.png");
+	playerTexture.loadFromFile("ASSETS\\IMAGES\\spritesheet.png");
+	player.setTexture(&playerTexture);
+	player.setFillColor(Khaki);
 	
 	createLevel();
 	view = window.getDefaultView();
 	player.setSize(sf::Vector2f(20, 20));
-	player.setPosition(160, 500);
-	player.setFillColor(Wenge);
+	player.setPosition(190, 530);
+	player.setFillColor(sf::Color::White);
 	isJumping = false;
 
 }
@@ -140,7 +144,7 @@ void Game::createLevel()
 
 				level[row][col].setSize(sf::Vector2f(70, 30));
 				level[row][col].setPosition(row * 70, col * 30);
-				level[row][col].setFillColor(UltraViolet);
+				level[row][col].setFillColor(AshGrey);
 				level[row][col].setTexture(&groundTexture);
 			}
 			if (levelData[row][col] == 0)
@@ -148,14 +152,14 @@ void Game::createLevel()
 
 				level[row][col].setSize(sf::Vector2f(70, 30));
 				level[row][col].setPosition(row * 70, col * 30);
-				level[row][col].setFillColor(LightOrange);
+				level[row][col].setFillColor(Auburn);
 			}
 			if (levelData[row][col] == 2)
 			{
 				level[row][col].setSize(sf::Vector2f(70, 30));
 				level[row][col].setPosition(row * 70, col * 30);
 				level[row][col].setTexture(&eyeTexture);
-				level[row][col].setFillColor(RussianViolet);
+				level[row][col].setFillColor(Cream);
 
 			}
 
@@ -212,17 +216,6 @@ void Game::Collisions()
 
 			}
 
-			if (velocityY < 0)
-			{
-				if (levelData[row][col] == 1)
-				{
-					if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
-					{
-					}
-
-				}
-
-			}
 			if (levelData[row][col] == 2)
 			{
 				if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
@@ -232,5 +225,33 @@ void Game::Collisions()
 			}
 		}
 	}
+
+	if (player.getPosition().y > 600)
+	{
+		setup();
+	}
+
+}
+
+void Game::animatePlayer()
+{
+	totalElapsed++;
+	if (totalElapsed > 9)
+	{
+		totalElapsed = 0;
+		currentFrame++;
+		if (currentFrame > 10)
+		{
+			currentFrame = 0;
+		}
+	}
+
+	sf::IntRect rectSourceSprite;
+	rectSourceSprite.height = 1038;
+	rectSourceSprite.width = 720;
+	rectSourceSprite.left = rectSourceSprite.width * totalElapsed;
+	rectSourceSprite.top = 0;
+	player.setTextureRect(rectSourceSprite);
+
 
 }
