@@ -8,5 +8,10 @@ C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatfor
 C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.cpp(154,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.cpp(160,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.cpp(160,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.cpp(176,21): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.cpp(169,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.cpp(169,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.cpp(183,21): warning C4305: '=': truncation from 'double' to 'float'
+  main.cpp
+C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\OneButtonPlatformer\Game.h(37,8): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Generating Code...
   OneButtonPlatformer.vcxproj -> C:\Users\Dylan\Desktop\motionGraphicsBackup\OneButtonPlatformer\Debug\OneButtonPlatformer.exe

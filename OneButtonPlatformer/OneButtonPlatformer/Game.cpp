@@ -163,6 +163,13 @@ void Game::createLevel()
 
 			}
 
+			if (levelData[row][col] == 3)
+			{
+				level[row][col].setSize(sf::Vector2f(70, 30));
+				level[row][col].setPosition(row * 70, col * 30);
+				level[row][col].setFillColor(sf::Color::White);
+			}
+
 		}
 	}
 }
@@ -226,10 +233,10 @@ void Game::Collisions()
 		}
 	}
 
-	if (player.getPosition().y > 600)
+	/*if (player.getPosition().y > 600)
 	{
 		setup();
-	}
+	}*/
 
 }
 
