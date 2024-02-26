@@ -84,7 +84,7 @@ void Game::update(sf::Time t_deltaTime)
 		for (int col = 0; col < numCols; col++)
 		{
 
-			level[row][col].move(-3.7, 0);
+			level[row][col].move(-3.5, 0);
 		}
 
 	}
@@ -170,6 +170,12 @@ void Game::createLevel()
 				level[row][col].setFillColor(sf::Color::White);
 			}
 
+			if (levelData[row][col] == 4)
+			{
+				level[row][col].setSize(sf::Vector2f(70, 30));
+				level[row][col].setPosition(row * 70, col * 30);
+				level[row][col].setFillColor(Cream);
+			}
 		}
 	}
 }
@@ -230,13 +236,21 @@ void Game::Collisions()
 					setup();
 				}
 			}
+
+			if (levelData[row][col] == 4)
+			{
+				if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
+				{
+					velocityY = -20;
+				}
+			}
 		}
 	}
 
-	/*if (player.getPosition().y > 600)
+	if (player.getPosition().y > 600)
 	{
 		setup();
-	}*/
+	}
 
 }
 
