@@ -84,7 +84,7 @@ void Game::update(sf::Time t_deltaTime)
 		for (int col = 0; col < numCols; col++)
 		{
 
-			level[row][col].move(-3.5, 0);
+			level[row][col].move(direction, 0);
 		}
 
 	}
@@ -99,14 +99,23 @@ void Game::update(sf::Time t_deltaTime)
 void Game::render()
 {
 	m_window.clear(Night);
-	for (int row = 0; row < numRows; row++)
+
+	if (!win)
 	{
-		for (int col = 0; col < numCols; col++)
+		for (int row = 0; row < numRows; row++)
 		{
-			m_window.draw(level[row][col]);
+			for (int col = 0; col < numCols; col++)
+			{
+				m_window.draw(level[row][col]);
+			}
 		}
+		m_window.draw(player);
 	}
-	m_window.draw(player);
+	else
+	{
+		m_window.draw(wintext);
+	}
+
 	m_window.display();
 }
 
@@ -117,14 +126,23 @@ void Game::setup()
 		std::cout << "problem loading arial black font" << std::endl;
 	}
 
+	wintext.setFillColor(Auburn);
+	wintext.setPosition(300, 300);
+	wintext.setCharacterSize(30);
+	wintext.setString("You Won!");
+	wintext.setFont(m_ArialBlackfont);
+
 	groundTexture.loadFromFile("ASSETS\\IMAGES\\Ground_Tiles.jpg");
-	eyeTexture.loadFromFile("ASSETS\\IMAGES\\EyeTile.png");
+	crateTexture.loadFromFile("ASSETS\\IMAGES\\crate.png");
 	playerTexture.loadFromFile("ASSETS\\IMAGES\\spritesheet.png");
+	bounceTexture.loadFromFile("ASSETS\\IMAGES\\UpArrow.png");
+	directionTexture.loadFromFile("ASSETS\\IMAGES\\DirectionArrow.png");
 	player.setTexture(&playerTexture);
 	player.setFillColor(Khaki);
 	
 	createLevel();
 	view = window.getDefaultView();
+	view.zoom(100);
 	player.setSize(sf::Vector2f(20, 20));
 	player.setPosition(190, 530);
 	player.setFillColor(sf::Color::White);
@@ -158,7 +176,7 @@ void Game::createLevel()
 			{
 				level[row][col].setSize(sf::Vector2f(70, 30));
 				level[row][col].setPosition(row * 70, col * 30);
-				level[row][col].setTexture(&eyeTexture);
+				level[row][col].setTexture(&crateTexture);
 				level[row][col].setFillColor(Cream);
 
 			}
@@ -168,6 +186,7 @@ void Game::createLevel()
 				level[row][col].setSize(sf::Vector2f(70, 30));
 				level[row][col].setPosition(row * 70, col * 30);
 				level[row][col].setFillColor(sf::Color::White);
+
 			}
 
 			if (levelData[row][col] == 4)
@@ -175,6 +194,17 @@ void Game::createLevel()
 				level[row][col].setSize(sf::Vector2f(70, 30));
 				level[row][col].setPosition(row * 70, col * 30);
 				level[row][col].setFillColor(Cream);
+
+				level[row][col].setTexture(&bounceTexture);
+			}
+
+			if (levelData[row][col] == 5)
+			{
+				level[row][col].setSize(sf::Vector2f(70, 30));
+				level[row][col].setPosition((row * 70) + 35 , col * 30);
+				level[row][col].setFillColor(sf::Color::Blue);
+				level[row][col].setOrigin(35, 0);
+				level[row][col].setTexture(&directionTexture);
 			}
 		}
 	}
@@ -217,6 +247,7 @@ void Game::Collisions()
 							player.setPosition(player.getPosition().x, level[row][col].getPosition().y);
 							player.move(0, -player.getGlobalBounds().height);
 							isJumping = false;
+							hasReversed = false;
 							break;
 						}
 						else {
@@ -234,6 +265,17 @@ void Game::Collisions()
 				if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
 				{
 					setup();
+					hasReversed = false;
+				}
+				
+			}
+
+			if (levelData[row][col] == 3)
+			{
+				if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
+				{
+					win = true;
+
 				}
 			}
 
@@ -242,6 +284,18 @@ void Game::Collisions()
 				if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
 				{
 					velocityY = -20;
+					hasReversed = false;
+
+				}
+			}
+
+			if (levelData[row][col] == 5)
+			{
+				if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
+				{
+					velocityY = 0;
+					gravity = 0;
+					reverse();
 				}
 			}
 		}
@@ -274,5 +328,39 @@ void Game::animatePlayer()
 	rectSourceSprite.top = 0;
 	player.setTextureRect(rectSourceSprite);
 
+
+}
+
+void Game::reverse()
+{
+	if (!hasReversed)
+	{
+		hasReversed = true;
+		if (!reversed)
+		{
+			direction = 3.5;
+			reversed = true;
+			player.setScale(-1, 1);
+		}
+		else
+		{
+			direction = -3.5;
+			reversed = false;
+			player.setScale(1, 1);
+		}
+
+		for (int row = 0; row < numRows; row++)
+		{
+			for (int col = 0; col < numCols; col++)
+			{
+				if (levelData[row][col] == 5)
+				{
+					level[row][col].setScale(level[row][col].getScale().x * -1, level[row][col].getScale().y);
+				}
+			}
+		}
+	}
+
+	
 
 }
