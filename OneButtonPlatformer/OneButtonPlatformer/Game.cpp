@@ -142,11 +142,13 @@ void Game::setup()
 	
 	createLevel();
 	view = window.getDefaultView();
+	view.setCenter(player.getPosition());
 	view.zoom(100);
 	player.setSize(sf::Vector2f(20, 20));
-	player.setPosition(190, 530);
+	player.setPosition(160, 530);
 	player.setFillColor(sf::Color::White);
 	isJumping = false;
+	reversed = false;
 
 }
 
@@ -310,22 +312,47 @@ void Game::Collisions()
 
 void Game::animatePlayer()
 {
-	totalElapsed++;
-	if (totalElapsed > 9)
+	int row;
+
+	if (!isJumping)
 	{
-		totalElapsed = 0;
-		currentFrame++;
-		if (currentFrame > 10)
+		row = 1;
+
+		totalElapsed++;
+		if (totalElapsed > 9)
 		{
-			currentFrame = 0;
+			totalElapsed = 0;
+			currentFrame++;
+			if (currentFrame > 10)
+			{
+				currentFrame = 0;
+			}
+		}
+
+	}
+	else
+	{
+		row = 2;
+		totalElapsed = 0;
+
+		totalElapsed++;
+		if (totalElapsed > 2)
+		{
+			totalElapsed = 3;
+			currentFrame++;
+			if (currentFrame > 3)
+			{
+				currentFrame = 3;
+			}
 		}
 	}
 
 	sf::IntRect rectSourceSprite;
-	rectSourceSprite.height = 1038;
+	rectSourceSprite.height = 884;
 	rectSourceSprite.width = 720;
 	rectSourceSprite.left = rectSourceSprite.width * totalElapsed;
-	rectSourceSprite.top = 0;
+	rectSourceSprite.top = (rectSourceSprite.height * row) - rectSourceSprite.height;
+	
 	player.setTextureRect(rectSourceSprite);
 
 
