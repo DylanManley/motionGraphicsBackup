@@ -1,0 +1,39 @@
+﻿  Game.cpp
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.h(39,18): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.h(57,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(91,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(98,13): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(173,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(174,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(196,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(196,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(204,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(204,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(210,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(210,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(219,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(219,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(227,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(227,37): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(236,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(236,44): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(259,18): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(428,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(434,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  OneButtonPlatformer.vcxproj -> C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\Debug\OneButtonPlatformer.exe
