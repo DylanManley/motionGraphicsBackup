@@ -116,6 +116,11 @@ void Game::render()
 			{
 				m_window.draw(level[row][col]);
 			}
+
+			for (int i = 0; i < 6; i++)
+			{
+				m_window.draw(selectableTiles[i]);
+			}
 		}
 		if (!editing)
 		{
@@ -162,8 +167,48 @@ void Game::setup()
 	isJumping = false;
 	reversed = false;
 
-	pointer.setRadius(10);
-	pointer.setFillColor(sf::Color::Black);
+	
+	selectableTiles[0].setSize(sf::Vector2f(70, 30));
+	selectableTiles[0].setPosition(30, 40);
+	selectableTiles[0].setFillColor(Auburn);
+	selectableTiles[0].setOutlineColor(sf::Color::Cyan);
+	selectableTiles[0].setOutlineThickness(2);
+
+	selectableTiles[1].setSize(sf::Vector2f(70, 30));
+	selectableTiles[1].setPosition(30, 80);
+	selectableTiles[1].setFillColor(AshGrey);
+	selectableTiles[1].setTexture(&groundTexture);
+	selectableTiles[1].setOutlineColor(sf::Color::Cyan);
+	selectableTiles[1].setOutlineThickness(2);
+
+	selectableTiles[2].setSize(sf::Vector2f(70, 30));
+	selectableTiles[2].setPosition(30, 120);
+	selectableTiles[2].setTexture(&crateTexture);
+	selectableTiles[2].setFillColor(Cream);
+	selectableTiles[2].setOutlineColor(sf::Color::Cyan);
+	selectableTiles[2].setOutlineThickness(2);
+
+	selectableTiles[3].setSize(sf::Vector2f(70, 30));
+	selectableTiles[3].setPosition(30, 160);
+	selectableTiles[3].setFillColor(sf::Color::White);
+	selectableTiles[3].setOutlineColor(sf::Color::Cyan);
+	selectableTiles[3].setOutlineThickness(2);
+
+	selectableTiles[4].setSize(sf::Vector2f(70, 30));
+	selectableTiles[4].setPosition(30, 200);
+	selectableTiles[4].setFillColor(Cream);
+	selectableTiles[4].setTexture(&bounceTexture);
+	selectableTiles[4].setOutlineColor(sf::Color::Cyan);
+	selectableTiles[4].setOutlineThickness(2);
+
+	selectableTiles[5].setSize(sf::Vector2f(70, 30));
+	selectableTiles[5].setPosition(30, 240);
+	selectableTiles[5].setFillColor(sf::Color::Blue);
+	selectableTiles[5].setTexture(&directionTexture);
+	selectableTiles[5].setOutlineColor(sf::Color::Cyan);
+	selectableTiles[5].setOutlineThickness(2);
+
+
 
 }
 

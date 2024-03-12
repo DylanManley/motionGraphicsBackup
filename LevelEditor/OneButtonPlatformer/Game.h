@@ -59,8 +59,7 @@ private:
 	bool hasReversed = false;
 	bool editing = true;
 
-	sf::RectangleShape tileBox;
-	sf::RectangleShape SelectableTiles;
+	sf::RectangleShape selectableTiles[6];
 
 	sf::CircleShape pointer;
 	int selectedTile = 1;
