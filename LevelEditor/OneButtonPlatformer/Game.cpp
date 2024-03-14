@@ -226,6 +226,7 @@ void Game::editLevel()
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
+
 				if (level[row][col].getGlobalBounds().contains(mousePos))
 				{
 					levelData[row][col] = selectedTile;
@@ -248,6 +249,7 @@ void Game::editLevel()
 				level[row][col].setSize(sf::Vector2f(70, 30));
 				level[row][col].setPosition(row * 70, col * 30);
 				level[row][col].setFillColor(Auburn);
+				level[row][col].setTexture(NULL);
 			}
 			if (levelData[row][col] == 2)
 			{
@@ -278,9 +280,8 @@ void Game::editLevel()
 			if (levelData[row][col] == 5)
 			{
 				level[row][col].setSize(sf::Vector2f(70, 30));
-				level[row][col].setPosition((row * 70) + 35, col * 30);
+				level[row][col].setPosition((row * 70), col * 30);
 				level[row][col].setFillColor(sf::Color::Blue);
-				level[row][col].setOrigin(35, 0);
 				level[row][col].setTexture(&directionTexture);
 			}
 
@@ -295,6 +296,11 @@ void Game::editLevel()
 
 void Game::handleInput()
 {
+
+	sf::Vector2f mousePos;
+	mousePos.x = sf::Mouse::getPosition(m_window).x;
+	mousePos.y = sf::Mouse::getPosition(m_window).y;
+
 	if (!editing)
 	{
 		if (isJumping == false)
@@ -327,6 +333,18 @@ void Game::handleInput()
 				{
 					level[row][col].move(3.5, 0);
 				}
+			}
+		}
+	}
+
+	for (int i = 0; i < 6; i++)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+
+			if (selectableTiles[i].getGlobalBounds().contains(mousePos))
+			{
+				selectedTile = i;
 			}
 		}
 	}
