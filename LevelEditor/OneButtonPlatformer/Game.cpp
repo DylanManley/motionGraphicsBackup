@@ -75,12 +75,17 @@ void Game::update(sf::Time t_deltaTime)
 		m_window.close();
 	}
 
-	handleInput();
-
-	if (!editing)
+	switch (gameState)
 	{
+	case GameState::Menu:
+		break;
+	case GameState::edit:
+			editLevel();
+		break;
+	case GameState::running:
 		Collisions();
 		animatePlayer();
+		handleInput();
 
 		for (int row = 0; row < numRows; row++)
 		{
@@ -89,6 +94,7 @@ void Game::update(sf::Time t_deltaTime)
 			{
 
 				level[row][col].move(direction, 0);
+				level[row][col].setOutlineThickness(0);
 			}
 
 		}
@@ -96,20 +102,29 @@ void Game::update(sf::Time t_deltaTime)
 		velocityY = velocityY + gravity;
 		player.move(0, velocityY);
 		gravity = 0.6;
-	}
-	else
-	{
-		editLevel();
-	}
+
+		break;
+	case GameState::won:
+		break;
+	default:
+		break;
+	}	
 }
 
 
 void Game::render()
 {
-	m_window.clear(Night);
-
-	if (!win)
+	switch (gameState)
 	{
+	case GameState::Menu:
+		m_window.clear(Khaki);
+		for (int i = 0; i < noButtons; i++)
+		{
+			m_window.draw(menuButtons[i]);
+		}
+		break;
+	case GameState::edit:
+		m_window.clear(Auburn);
 		for (int row = 0; row < numRows; row++)
 		{
 			for (int col = 0; col < numCols; col++)
@@ -122,17 +137,27 @@ void Game::render()
 				m_window.draw(selectableTiles[i]);
 			}
 		}
-		if (!editing)
-		{
-			m_window.draw(player);
-		}
-	}
-	else
-	{
-		m_window.draw(wintext);
-	}
 
-	m_window.draw(pointer);
+		break;
+	case GameState::running:
+		m_window.clear(Auburn);
+		for (int row = 0; row < numRows; row++)
+		{
+			for (int col = 0; col < numCols; col++)
+			{
+				m_window.draw(level[row][col]);
+			}
+		}
+
+		m_window.draw(player);
+		break;
+	case GameState::won:
+		m_window.clear(Night);
+		m_window.draw(wintext);
+		break;
+	default:
+		break;
+	}
 
 	m_window.display();
 }
@@ -144,11 +169,7 @@ void Game::setup()
 		std::cout << "problem loading arial black font" << std::endl;
 	}
 
-	wintext.setFillColor(Auburn);
-	wintext.setPosition(300, 300);
-	wintext.setCharacterSize(30);
-	wintext.setString("You Won!");
-	wintext.setFont(m_ArialBlackfont);
+	
 
 	groundTexture.loadFromFile("ASSETS\\IMAGES\\Ground_Tiles.jpg");
 	crateTexture.loadFromFile("ASSETS\\IMAGES\\crate.png");
@@ -161,55 +182,77 @@ void Game::setup()
 	view = window.getDefaultView();
 	view.setCenter(player.getPosition());
 	view.zoom(100);
-	player.setSize(sf::Vector2f(20, 20));
-	player.setPosition(160, 530);
-	player.setFillColor(sf::Color::White);
-	isJumping = false;
-	reversed = false;
 
-	
-	selectableTiles[0].setSize(sf::Vector2f(70, 30));
-	selectableTiles[0].setPosition(30, 40);
-	selectableTiles[0].setFillColor(Auburn);
-	selectableTiles[0].setOutlineColor(sf::Color::Cyan);
-	selectableTiles[0].setOutlineThickness(2);
+	for (int row = 0; row < numRows; row++)
+	{
+		for (int col = 0; col < numCols; col++)
+		{
+			level[row][col].setSize(sf::Vector2f(70, 30));
+			level[row][col].setPosition(row * 70, col * 30);
+		}
+	}
 
-	selectableTiles[1].setSize(sf::Vector2f(70, 30));
-	selectableTiles[1].setPosition(30, 80);
-	selectableTiles[1].setFillColor(AshGrey);
-	selectableTiles[1].setTexture(&groundTexture);
-	selectableTiles[1].setOutlineColor(sf::Color::Cyan);
-	selectableTiles[1].setOutlineThickness(2);
+		selectableTiles[0].setSize(sf::Vector2f(70, 30));
+		selectableTiles[0].setPosition(30, 40);
+		selectableTiles[0].setFillColor(Auburn);
+		selectableTiles[0].setOutlineColor(sf::Color::Cyan);
+		selectableTiles[0].setOutlineThickness(2);
 
-	selectableTiles[2].setSize(sf::Vector2f(70, 30));
-	selectableTiles[2].setPosition(30, 120);
-	selectableTiles[2].setTexture(&crateTexture);
-	selectableTiles[2].setFillColor(Cream);
-	selectableTiles[2].setOutlineColor(sf::Color::Cyan);
-	selectableTiles[2].setOutlineThickness(2);
+		selectableTiles[1].setSize(sf::Vector2f(70, 30));
+		selectableTiles[1].setPosition(30, 80);
+		selectableTiles[1].setFillColor(AshGrey);
+		selectableTiles[1].setTexture(&groundTexture);
+		selectableTiles[1].setOutlineColor(sf::Color::Cyan);
+		selectableTiles[1].setOutlineThickness(2);
 
-	selectableTiles[3].setSize(sf::Vector2f(70, 30));
-	selectableTiles[3].setPosition(30, 160);
-	selectableTiles[3].setFillColor(sf::Color::White);
-	selectableTiles[3].setOutlineColor(sf::Color::Cyan);
-	selectableTiles[3].setOutlineThickness(2);
+		selectableTiles[2].setSize(sf::Vector2f(70, 30));
+		selectableTiles[2].setPosition(30, 120);
+		selectableTiles[2].setTexture(&crateTexture);
+		selectableTiles[2].setFillColor(Cream);
+		selectableTiles[2].setOutlineColor(sf::Color::Cyan);
+		selectableTiles[2].setOutlineThickness(2);
 
-	selectableTiles[4].setSize(sf::Vector2f(70, 30));
-	selectableTiles[4].setPosition(30, 200);
-	selectableTiles[4].setFillColor(Cream);
-	selectableTiles[4].setTexture(&bounceTexture);
-	selectableTiles[4].setOutlineColor(sf::Color::Cyan);
-	selectableTiles[4].setOutlineThickness(2);
+		selectableTiles[3].setSize(sf::Vector2f(70, 30));
+		selectableTiles[3].setPosition(30, 160);
+		selectableTiles[3].setFillColor(sf::Color::White);
+		selectableTiles[3].setOutlineColor(sf::Color::Cyan);
+		selectableTiles[3].setOutlineThickness(2);
 
-	selectableTiles[5].setSize(sf::Vector2f(70, 30));
-	selectableTiles[5].setPosition(30, 240);
-	selectableTiles[5].setFillColor(sf::Color::Blue);
-	selectableTiles[5].setTexture(&directionTexture);
-	selectableTiles[5].setOutlineColor(sf::Color::Cyan);
-	selectableTiles[5].setOutlineThickness(2);
+		selectableTiles[4].setSize(sf::Vector2f(70, 30));
+		selectableTiles[4].setPosition(30, 200);
+		selectableTiles[4].setFillColor(Cream);
+		selectableTiles[4].setTexture(&bounceTexture);
+		selectableTiles[4].setOutlineColor(sf::Color::Cyan);
+		selectableTiles[4].setOutlineThickness(2);
+
+		selectableTiles[5].setSize(sf::Vector2f(70, 30));
+		selectableTiles[5].setPosition(30, 240);
+		selectableTiles[5].setFillColor(sf::Color::Blue);
+		selectableTiles[5].setTexture(&directionTexture);
+		selectableTiles[5].setOutlineColor(sf::Color::Cyan);
+		selectableTiles[5].setOutlineThickness(2);
+
+		player.setSize(sf::Vector2f(20, 20));
+		player.setPosition(160, 530);
+		player.setFillColor(sf::Color::White);
+		isJumping = false;
+		reversed = false;
+
+		wintext.setFillColor(Auburn);
+		wintext.setPosition(300, 300);
+		wintext.setCharacterSize(30);
+		wintext.setString("You Won!");
+		wintext.setFont(m_ArialBlackfont);
 
 
-
+		for (int i = 0; i < noButtons; i++)
+		{
+			menuButtons[i].setSize(sf::Vector2f(300, 50));
+			menuButtons[i].setFillColor(Night);
+			menuButtons[i].setOrigin(menuButtons[i].getSize().x / 2, menuButtons[i].getSize().y / 2);
+			menuButtons[i].setPosition(m_window.getSize().x / 2, m_window.getSize().y / 2 - (100 * i));
+			
+		}
 }
 
 void Game::editLevel()
@@ -219,6 +262,14 @@ void Game::editLevel()
 	mousePos.y = sf::Mouse::getPosition(m_window).y;
 
 
+	for (int i = 0; i < 6; i++)
+	{
+		if (selectableTiles[i].getGlobalBounds().contains(mousePos))
+		{
+			selectedTile = i;
+		}
+	}
+
 	for (int row = 0; row < numRows; row++)
 	{
 		for (int col = 0; col < numCols; col++)
@@ -226,35 +277,47 @@ void Game::editLevel()
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-
 				if (level[row][col].getGlobalBounds().contains(mousePos))
 				{
 					levelData[row][col] = selectedTile;
 				}
 			}
 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+			{
+				level[row][col].move(3.5, 0);
+			}
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				level[row][col].move(-3.5, 0);
+			}
+
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+			{
+				setup();
+				gameState = GameState::running;
+			}
 
 			//tileTypes
 			if (levelData[row][col] == 1)
 			{
-
-				level[row][col].setSize(sf::Vector2f(70, 30));
-				level[row][col].setPosition(row * 70, col * 30);
+				level[row][col].setPosition(level[row][col].getPosition());
 				level[row][col].setFillColor(AshGrey);
+				level[row][col].setTexture(NULL);
 				level[row][col].setTexture(&groundTexture);
 			}
 			if (levelData[row][col] == 0)
 			{
-
-				level[row][col].setSize(sf::Vector2f(70, 30));
-				level[row][col].setPosition(row * 70, col * 30);
+				level[row][col].setPosition(level[row][col].getPosition());
 				level[row][col].setFillColor(Auburn);
 				level[row][col].setTexture(NULL);
 			}
 			if (levelData[row][col] == 2)
 			{
-				level[row][col].setSize(sf::Vector2f(70, 30));
-				level[row][col].setPosition(row * 70, col * 30);
+				level[row][col].setPosition(level[row][col].getPosition());
+				level[row][col].setTexture(NULL);
 				level[row][col].setTexture(&crateTexture);
 				level[row][col].setFillColor(Cream);
 
@@ -262,34 +325,29 @@ void Game::editLevel()
 
 			if (levelData[row][col] == 3)
 			{
-				level[row][col].setSize(sf::Vector2f(70, 30));
-				level[row][col].setPosition(row * 70, col * 30);
+				level[row][col].setPosition(level[row][col].getPosition());
 				level[row][col].setFillColor(sf::Color::White);
-
+				level[row][col].setTexture(NULL);
 			}
 
 			if (levelData[row][col] == 4)
 			{
-				level[row][col].setSize(sf::Vector2f(70, 30));
-				level[row][col].setPosition(row * 70, col * 30);
+				level[row][col].setPosition(level[row][col].getPosition());
 				level[row][col].setFillColor(Cream);
-
+				level[row][col].setTexture(NULL);
 				level[row][col].setTexture(&bounceTexture);
 			}
 
 			if (levelData[row][col] == 5)
 			{
-				level[row][col].setSize(sf::Vector2f(70, 30));
-				level[row][col].setPosition((row * 70), col * 30);
+				level[row][col].setPosition(level[row][col].getPosition());
 				level[row][col].setFillColor(sf::Color::Blue);
+				level[row][col].setTexture(NULL);
 				level[row][col].setTexture(&directionTexture);
 			}
 
-			if (editing)
-			{
-				level[row][col].setOutlineThickness(2);
-				level[row][col].setOutlineColor(sf::Color::White);
-			}
+			level[row][col].setOutlineThickness(2);
+			level[row][col].setOutlineColor(sf::Color::White);
 		}
 	}
 }
@@ -297,12 +355,6 @@ void Game::editLevel()
 void Game::handleInput()
 {
 
-	sf::Vector2f mousePos;
-	mousePos.x = sf::Mouse::getPosition(m_window).x;
-	mousePos.y = sf::Mouse::getPosition(m_window).y;
-
-	if (!editing)
-	{
 		if (isJumping == false)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -316,38 +368,6 @@ void Game::handleInput()
 				isJumping = false;
 			}
 		}
-	}
-	else
-	{
-		for (int row = 0; row < numRows; row++)
-		{
-			for (int col = 0; col < numCols; col++)
-			{
-
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-				{
-					level[row][col].move(-3.5, 0);
-				}
-
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-				{
-					level[row][col].move(3.5, 0);
-				}
-			}
-		}
-	}
-
-	for (int i = 0; i < 6; i++)
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-
-			if (selectableTiles[i].getGlobalBounds().contains(mousePos))
-			{
-				selectedTile = i;
-			}
-		}
-	}
 }
 
 void Game::Collisions()
@@ -374,7 +394,7 @@ void Game::Collisions()
 							break;
 						}
 						else {
-							setup();
+							gameState = GameState::edit;
 						}
 					}
 
@@ -387,8 +407,8 @@ void Game::Collisions()
 			{
 				if (player.getGlobalBounds().intersects(level[row][col].getGlobalBounds()))
 				{
-					setup();
 					hasReversed = false;
+					gameState = GameState::edit;
 				}
 				
 			}
@@ -426,7 +446,7 @@ void Game::Collisions()
 
 	if (player.getPosition().y > 600)
 	{
-		setup();
+		gameState = GameState::edit;
 	}
 
 }
@@ -496,19 +516,5 @@ void Game::reverse()
 			reversed = false;
 			player.setScale(1, 1);
 		}
-
-		for (int row = 0; row < numRows; row++)
-		{
-			for (int col = 0; col < numCols; col++)
-			{
-				if (levelData[row][col] == 5)
-				{
-					level[row][col].setScale(level[row][col].getScale().x * -1, level[row][col].getScale().y);
-				}
-			}
-		}
 	}
-
-	
-
 }

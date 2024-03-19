@@ -2,6 +2,15 @@
 #define GAME_HPP
 #include <SFML/Graphics.hpp>
 
+enum class GameState
+{
+	Menu,
+	edit,
+	running,
+	won
+};
+
+
 class Game
 {
 public:
@@ -57,7 +66,6 @@ private:
 	int direction = -3.5;
 	bool reversed = false;
 	bool hasReversed = false;
-	bool editing = true;
 
 	sf::RectangleShape selectableTiles[6];
 
@@ -95,7 +103,7 @@ private:
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
-	{ 0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
+	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },
@@ -117,6 +125,11 @@ private:
 
 	sf::RectangleShape level[numRows][numCols];
 
+	const static int noButtons = 3;
+	sf::RectangleShape menuButtons[noButtons];
+	sf::Text buttonText[noButtons];
+
+	GameState gameState = GameState::Menu;
 
 };
 
