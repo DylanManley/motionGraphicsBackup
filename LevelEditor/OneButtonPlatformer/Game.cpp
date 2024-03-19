@@ -78,6 +78,7 @@ void Game::update(sf::Time t_deltaTime)
 	switch (gameState)
 	{
 	case GameState::Menu:
+			handleInput();
 		break;
 	case GameState::edit:
 			editLevel();
@@ -121,6 +122,7 @@ void Game::render()
 		for (int i = 0; i < noButtons; i++)
 		{
 			m_window.draw(menuButtons[i]);
+			m_window.draw(buttonText[i]);
 		}
 		break;
 	case GameState::edit:
@@ -250,7 +252,16 @@ void Game::setup()
 			menuButtons[i].setSize(sf::Vector2f(300, 50));
 			menuButtons[i].setFillColor(Night);
 			menuButtons[i].setOrigin(menuButtons[i].getSize().x / 2, menuButtons[i].getSize().y / 2);
-			menuButtons[i].setPosition(m_window.getSize().x / 2, m_window.getSize().y / 2 - (100 * i));
+			menuButtons[i].setPosition(m_window.getSize().x / 2, (m_window.getSize().y / 2) + 200 - (100 * i));
+
+			buttonText[i].setFillColor(Auburn);
+			buttonText[i].setOrigin(buttonText[i].getGlobalBounds().width / 2, buttonText[i].getGlobalBounds().height / 2);
+			buttonText[i].setPosition(menuButtons[i].getPosition().x - 20 , menuButtons[i].getPosition().y - 10);
+			buttonText[i].setCharacterSize(20);
+			buttonText[i].setFont(m_ArialBlackfont);
+			buttonText[2].setString("EDIT");
+			buttonText[1].setString("LOAD");
+			buttonText[0].setString("QUIT");
 			
 		}
 }
@@ -354,7 +365,44 @@ void Game::editLevel()
 
 void Game::handleInput()
 {
+	sf::Vector2f mousePos;
+	mousePos.x = sf::Mouse::getPosition(m_window).x;
+	mousePos.y = sf::Mouse::getPosition(m_window).y;
 
+
+	switch (gameState)
+	{
+	case GameState::Menu:
+		
+		for (int i = 0; i < noButtons; i++)
+		{
+			if (menuButtons[i].getGlobalBounds().contains(mousePos))
+			{
+				menuButtons[i].setFillColor(sf::Color::White);
+			}
+			else
+			{
+				menuButtons[i].setFillColor(Night);
+			}
+		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if(menuButtons[0].getGlobalBounds().contains(mousePos))
+			{
+				m_window.close();
+			}
+
+			if (menuButtons[2].getGlobalBounds().contains(mousePos))
+			{
+				gameState = GameState::edit;
+			}
+		}
+
+		break;
+	case GameState::edit:
+		break;
+	case GameState::running:
 		if (isJumping == false)
 		{
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
@@ -368,6 +416,12 @@ void Game::handleInput()
 				isJumping = false;
 			}
 		}
+		break;
+	case GameState::won:
+		break;
+	default:
+		break;
+	}
 }
 
 void Game::Collisions()
