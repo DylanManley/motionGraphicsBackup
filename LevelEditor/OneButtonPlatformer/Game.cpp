@@ -5,6 +5,7 @@
 
 #include "Game.h"
 #include <iostream>
+#include <fstream>
 
 
 Game::Game() :
@@ -272,6 +273,11 @@ void Game::editLevel()
 	mousePos.x = sf::Mouse::getPosition(m_window).x;
 	mousePos.y = sf::Mouse::getPosition(m_window).y;
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+	{
+		save();
+	}
+
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -393,6 +399,12 @@ void Game::handleInput()
 				m_window.close();
 			}
 
+			if (menuButtons[1].getGlobalBounds().contains(mousePos))
+			{
+				load();
+				gameState = GameState::running;
+			}
+
 			if (menuButtons[2].getGlobalBounds().contains(mousePos))
 			{
 				gameState = GameState::edit;
@@ -401,6 +413,7 @@ void Game::handleInput()
 
 		break;
 	case GameState::edit:
+
 		break;
 	case GameState::running:
 		if (isJumping == false)
@@ -570,5 +583,48 @@ void Game::reverse()
 			reversed = false;
 			player.setScale(1, 1);
 		}
+	}
+}
+
+void Game::save()
+{
+	std::ofstream file("Level.txt");
+	if (file.is_open())
+	{
+		for (int row = 0; row < numRows; row++)
+		{
+			for (int col = 0; col < numCols; col++)
+			{
+				file << levelData[col][row] << " ";
+			}
+			file << "\n";
+		}
+		file.close();
+		std::cout << "level Saved";
+	}
+	else
+	{
+		std::cout << "couldn't open file";
+	}
+}
+
+void Game::load()
+{
+	std::ifstream file("Level.txt");
+	if (file.is_open())
+	{
+		for (int row = 0; row < numRows; row++)
+		{
+			for (int col = 0; col < numCols; col++)
+			{
+				file >> levelData[col][row];
+			}
+		}
+		file.close();
+		std::cout << "level Loaded";
+	}
+	else
+	{
+		std::cout << "couldn't open file";
 	}
 }

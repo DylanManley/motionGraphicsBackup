@@ -31,6 +31,8 @@ private:
 	void Collisions();
 	void animatePlayer();
 	void reverse();
+	void save();
+	void load();
 
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message
@@ -75,6 +77,10 @@ private:
 
 	static const int numRows = 45;
 	static const int numCols = 20;
+
+
+
+
 	int levelData[numRows][numCols] =
 	{
 	{ 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 },

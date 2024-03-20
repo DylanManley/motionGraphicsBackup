@@ -1,21 +1,21 @@
 ﻿  Game.cpp
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.h(48,8): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.h(66,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(97,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(105,16): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(193,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(193,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(255,90): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.h(50,18): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.h(68,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(98,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(106,13): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(194,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(194,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(256,90): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(255,52): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(256,52): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(272,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(273,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -24,7 +24,7 @@ C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game
           [
               T=float
           ]
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(273,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(274,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -33,7 +33,7 @@ C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game
           [
               T=float
           ]
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(369,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(375,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -42,7 +42,7 @@ C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game
           [
               T=float
           ]
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(370,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(376,47): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=int
@@ -51,7 +51,7 @@ C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game
           [
               T=float
           ]
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(410,22): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(563,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(569,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  OneButtonPlatformer.vcxproj -> C:\Users\Dylan\Desktop\motionGraphicsBackup\LevelEditor\Debug\OneButtonPlatformer.exe
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(423,18): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(576,16): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\OneButtonPlatformer\Game.cpp(582,17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  OneButtonPlatformer.vcxproj -> C:\Users\c00286789\Desktop\motionGraphicsBackup\LevelEditor\Debug\OneButtonPlatformer.exe
